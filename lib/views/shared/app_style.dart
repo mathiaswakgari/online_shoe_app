@@ -11,3 +11,17 @@ TextStyle appStyle(
     fontWeight: fontWeight
   );
 }
+
+TextStyle appStyleTwo(
+    double fontSize,
+    double height,
+    Color fontColor,
+    FontWeight fontWeight,
+    ){
+  return GoogleFonts.poppins(
+      fontSize: fontSize,
+      color: fontColor,
+      height: height,
+      fontWeight: fontWeight
+  );
+}
