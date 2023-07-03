@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:online_shoe_app/controllers/mainScreenProvider.dart';
 import 'package:online_shoe_app/views/ui/main_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider<MainScreenNotifier>(create: (_)=> MainScreenNotifier())
+      ],
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
