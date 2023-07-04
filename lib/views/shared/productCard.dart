@@ -36,7 +36,7 @@ class _ShoeCardState extends State<ShoeCard> {
             decoration: const BoxDecoration(
               boxShadow: [
                 BoxShadow(
-                  color: Colors.white,
+                  color: Color(0XFFEBEEEF),
                   spreadRadius: 1,
                   blurRadius: 0.6,
                   offset: Offset(1, 1)

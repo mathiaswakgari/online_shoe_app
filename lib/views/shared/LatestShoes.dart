@@ -13,7 +13,7 @@ class LatestShoes extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration:  const BoxDecoration(
-          color: Colors.white
+          color: Color(0XFFEBEEEF)
       ),
       height: MediaQuery.of(context).size.height * 0.12,
       width: MediaQuery.of(context).size.width * 0.28,

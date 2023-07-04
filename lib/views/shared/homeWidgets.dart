@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_shoe_app/views/shared/productCard.dart';
+import 'package:online_shoe_app/views/ui/productCatagory.dart';
 
 import '../../models/shoeModel.dart';
 import 'LatestShoes.dart';
@@ -8,10 +9,11 @@ import 'app_style.dart';
 class HomeWidget extends StatelessWidget {
   const HomeWidget({
     super.key,
-    required Future<List<Shoe>> shoes,
+    required Future<List<Shoe>> shoes, required this.tabIndex,
   }) : _shoes = shoes;
 
   final Future<List<Shoe>> _shoes;
+  final int tabIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -63,9 +65,21 @@ class HomeWidget extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Text(
-                        "Show All",
-                        style: appStyle(22, Colors.black, FontWeight.w500),
+                      GestureDetector(
+                        onTap:(){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context)=> ProductCategory(
+                                    tabIndex: tabIndex
+                                  )
+                              )
+                          );
+                        },
+                        child: Text(
+                          "Show All",
+                          style: appStyle(22, Colors.black, FontWeight.w500),
+                        ),
                       ),
                       const Icon(
                         Icons.keyboard_arrow_right,

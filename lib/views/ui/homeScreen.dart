@@ -92,8 +92,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             child: TabBarView(
                 controller: _tabController,
                 children: [
-                  HomeWidget(shoes: _mens),
-                  HomeWidget(shoes: _womens),
+                  HomeWidget(shoes: _mens, tabIndex: 0,),
+                  HomeWidget(shoes: _womens, tabIndex: 1,),
                 ]
 
 
