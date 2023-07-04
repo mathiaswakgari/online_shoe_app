@@ -1,6 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:online_shoe_app/services/helper.dart';
 import 'package:online_shoe_app/views/shared/app_style.dart';
+import 'package:online_shoe_app/views/shared/productCard.dart';
+import 'package:online_shoe_app/models/shoeModel.dart';
+
+import '../shared/LatestShoes.dart';
+import '../shared/homeWidgets.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -11,9 +17,29 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late final TabController _tabController = TabController(length: 2, vsync: this);
+  late Future<List<Shoe>> _mens;
+  late Future<List<Shoe>> _womens;
+
+
+  void getMens(){
+    _mens = Helper().getMens();
+  }
+  void getWomens(){
+    _womens = Helper().getWomens();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getMens();
+    getWomens();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFE2E2E2),
       body: SizedBox(
       height: MediaQuery.of(context).size.height,
       child: Stack(
@@ -66,89 +92,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             child: TabBarView(
                 controller: _tabController,
                 children: [
-                  Column(
-                    children: [
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.375,
-                        child: ListView.builder(
-                            itemCount: 6,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index){
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 8.0),
-                                child: Container(
-                                  color: Colors.grey[200],
-                                  height: MediaQuery.of(context).size.height,
-                                  width: MediaQuery.of(context).size.width * 0.4,
-                                  child: CachedNetworkImage(
-                                      imageUrl: "https://2app.kicksonfire.com/kofapp/upload/events_master_images/ipad_parley-x-adidas-forum-mid-wonder-white.png"),
-                                ),
-                              );
-                            }
-
-                        ),
-
-                      ),
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Latest",
-                                  style: appStyle(24, Colors.black, FontWeight.bold),
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                        "Show All",
-                                        style: appStyle(22, Colors.black, FontWeight.w500),
-                                    ),
-                                    const Icon(
-                                      Icons.keyboard_arrow_right,
-                                      size: 20,
-
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.10,
-                        child: ListView.builder(
-                            itemCount: 6,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index){
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 8.0),
-                                child: Container(
-                                  decoration:  BoxDecoration(
-                                    color: Colors.grey[200],
-                                  ),
-                                  height: MediaQuery.of(context).size.height * 0.12,
-                                  width: MediaQuery.of(context).size.width * 0.28,
-                                  child: CachedNetworkImage(
-                                      imageUrl: "https://cdn.shopify.com/s/files/1/0672/3039/products/1513905dc542bee2a70ae1d246595d60a1b9eb2c_1200x.png?v=1629255240"),
-                                      
-                                ),
-                              );
-                            }),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.375,
-                        color: Colors.cyanAccent,
-                      )
-                    ],
-                  )
+                  HomeWidget(shoes: _mens),
+                  HomeWidget(shoes: _womens),
                 ]
 
 
@@ -163,3 +108,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 }
+
+
+

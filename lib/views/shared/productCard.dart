@@ -23,12 +23,13 @@ class ShoeCard extends StatefulWidget {
 }
 
 class _ShoeCardState extends State<ShoeCard> {
+  bool selected = true;
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.fromLTRB(8, 0, 29, 0),
+        padding: const EdgeInsets.fromLTRB(8, 0, 29, 0),
         child: ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(16)),
+          borderRadius: const BorderRadius.all(Radius.circular(16)),
           child: Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width * 0.6,
@@ -48,7 +49,7 @@ class _ShoeCardState extends State<ShoeCard> {
                 Stack(
                   children: [
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.23,
+                      height: MediaQuery.of(context).size.height * 0.2,
                       decoration: BoxDecoration(
                         image: DecorationImage(image: NetworkImage(widget.image))
                       ),
@@ -56,25 +57,24 @@ class _ShoeCardState extends State<ShoeCard> {
                     Positioned(
                       right: 10,
                         top: 10,
-
                         child: GestureDetector(
                           onTap: (){},
-                          child: Icon(CupertinoIcons.heart),
+                          child: const Icon(CupertinoIcons.heart),
                         ))
                   ],
                 ),
                 Padding(
-                    padding: EdgeInsets.only(left: 8),
+                    padding: const EdgeInsets.only(left: 8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(widget.name, style: appStyleTwo(36, 1.1, Colors.black, FontWeight.bold)),
+                        Text(widget.name, style: appStyleTwo(16, 1.1, Colors.black, FontWeight.bold)),
                         Text(widget.category, style: appStyleTwo(18, 1.5, Colors.grey, FontWeight.bold)),
                       ],
                     ),
                 ),
                 Padding(
-                    padding: EdgeInsets.only(left: 8, right: 8),
+                    padding: const EdgeInsets.only(left: 8, right: 8),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -87,6 +87,15 @@ class _ShoeCardState extends State<ShoeCard> {
                           Text(
                             "Color",
                             style: appStyle(18, Colors.grey, FontWeight.w500),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          ChoiceChip(
+                              label: const Text(""),
+                              selected: selected,
+                              visualDensity: VisualDensity.compact,
+                              selectedColor: Colors.black,
                           )
                         ],
                       )
