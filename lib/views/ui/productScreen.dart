@@ -241,6 +241,48 @@ class _ProductScreenState extends State<ProductScreen> {
                                                   }
                                               ),
                                             ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            const Divider(
+                                              indent: 10,
+                                              color: Colors.black87,
+                                              endIndent: 10,
+                                            ),
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width * 0.9,
+                                              child: Text(
+                                                  widget.shoe.title,
+                                                  style: appStyle(26, Colors.black, FontWeight.w700),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              widget.shoe.description,
+                                              maxLines: 3,
+                                              style: appStyle(
+                                                  14,
+                                                  Colors.black,
+                                                  FontWeight.normal),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width,
+                                              height: 50,
+                                              child: ElevatedButton(
+                                                  style:ElevatedButton.styleFrom(
+                                                    backgroundColor: Colors.black
+                                                  ),
+                                                  onPressed: (){},
+                                                  child: Text(
+                                                      "Add to cart",
+                                                      style: appStyle(18, Colors.white, FontWeight.bold),
+                                                  )),
+                                            )
                                           ],
                                         )
                                       ],
