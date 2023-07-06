@@ -208,7 +208,39 @@ class _ProductScreenState extends State<ProductScreen> {
                                             const SizedBox(
                                               height: 20,
                                             ),
+                                            SizedBox(
+                                              height: 40,
+                                              child: ListView.builder(
+                                                  itemCount: widget.shoe.sizes.length,
+                                                  scrollDirection: Axis.horizontal,
+                                                  padding: EdgeInsets.zero,
+                                                  itemBuilder: (context, index){
+                                                    final sizes = productScreenNotifier.selectedSizes[index];
 
+                                                  return Padding(
+                                                    padding: const EdgeInsets.only(right: 10.0),
+                                                    child: ChoiceChip(
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(20)
+                                                        ),
+                                                        disabledColor: Colors.white,
+                                                        label: Text(
+                                                          widget.shoe.sizes[index]['size'],
+                                                          style: appStyle(
+                                                              18,
+                                                              sizes["isSelected"]? Colors.white: Colors.black,
+                                                              FontWeight.w500),
+                                                        ),
+                                                        selectedColor: Colors.black,
+                                                        selected: sizes["isSelected"],
+                                                      onSelected: (selection){
+                                                          productScreenNotifier.toggleCheck(index);
+                                                      },
+                                                    ),
+                                                  );
+                                                  }
+                                              ),
+                                            ),
                                           ],
                                         )
                                       ],
