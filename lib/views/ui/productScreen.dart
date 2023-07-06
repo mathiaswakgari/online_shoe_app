@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:online_shoe_app/controllers/productScreenProvider.dart';
 import 'package:online_shoe_app/models/shoeModel.dart';
 import 'package:online_shoe_app/views/shared/app_style.dart';
@@ -23,7 +24,7 @@ class _ProductScreenState extends State<ProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Consumer<ProductScreenNotifier>(
-          builder: (context,productScreenNotifier ,child){
+          builder: (context, productScreenNotifier ,child){
             return CustomScrollView(
               slivers: [
                 SliverAppBar(
@@ -124,7 +125,92 @@ class _ProductScreenState extends State<ProductScreen> {
                                       children: [
                                         Text(
                                           widget.shoe.name,
-                                          style: appStyle(30, Colors.black87, FontWeight.bold),)
+                                          style: appStyle(30, Colors.black87, FontWeight.bold),),
+                                        Row(
+                                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              widget.shoe.category,
+                                              style: appStyle(20, Colors.grey, FontWeight.w500),),
+                                            const SizedBox(
+                                              width: 20,
+                                            ),
+                                            RatingBar.builder(
+                                                initialRating: 0,
+                                                minRating: 0,
+                                                direction: Axis.horizontal,
+                                                allowHalfRating: true,
+                                                itemCount: 5,
+                                                itemSize: 20,
+                                                itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                                                itemBuilder: (context, _)=> const Icon(
+                                                  CupertinoIcons.star_fill,
+                                                  color: Colors.black,
+                                                ),
+                                                onRatingUpdate: (rating) {
+                                                    productScreenNotifier.rating = rating;
+                                                }
+                                            )
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                                "\$${widget.shoe.price}",
+                                                style: appStyle(26, Colors.black, FontWeight.w600),
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  "Colors",
+                                                  style: appStyle(18, Colors.black, FontWeight.w500),),
+                                                const SizedBox(
+                                                  width: 5,
+                                                ),
+                                                const CircleAvatar(
+                                                  radius: 7,
+                                                  backgroundColor: Colors.black,
+                                                ),
+                                                const SizedBox(
+                                                  width: 5,
+                                                ),
+                                                const CircleAvatar(
+                                                  radius: 7,
+                                                  backgroundColor: Colors.green,
+                                                )
+                                              ],
+                                            ),
+
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "Available Sizes",
+                                                  style: appStyle(20, Colors.black, FontWeight.w600),
+                                                ),
+                                                Text(
+                                                  "Size guide not available",
+                                                  style: appStyle(15, Colors.grey, FontWeight.w600),
+                                                )
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+
+                                          ],
+                                        )
                                       ],
                                     ),
                                 ),
