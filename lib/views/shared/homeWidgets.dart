@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_shoe_app/views/shared/productCard.dart';
 import 'package:online_shoe_app/views/ui/productCatagory.dart';
+import 'package:online_shoe_app/views/ui/productScreen.dart';
 
 import '../../models/shoeModel.dart';
 import 'LatestShoes.dart';
@@ -37,12 +38,22 @@ class HomeWidget extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index){
                         final shoe = snapshot.data![index];
-                        return ShoeCard(
-                            price: "\$${shoe.price}",
-                            category: shoe.category,
-                            id: shoe.id,
-                            name: shoe.name,
-                            image: shoe.imageUrl[0]
+                        return GestureDetector(
+                          onTap: (){
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context)=>ProductScreen(shoe: shoe)
+                                )
+                            );
+                          },
+                          child: ShoeCard(
+                              price: "\$${shoe.price}",
+                              category: shoe.category,
+                              id: shoe.id,
+                              name: shoe.name,
+                              image: shoe.imageUrl[0]
+                          ),
                         );
                       }
 

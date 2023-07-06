@@ -2,10 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:online_shoe_app/controllers/productScreenProvider.dart';
+import 'package:online_shoe_app/models/shoeModel.dart';
+import 'package:online_shoe_app/views/shared/app_style.dart';
 import 'package:provider/provider.dart';
 
 class ProductScreen extends StatefulWidget {
-  const ProductScreen({Key? key}) : super(key: key);
+  final Shoe shoe;
+
+  const ProductScreen({Key? key, required this.shoe}) : super(key: key);
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -31,7 +35,9 @@ class _ProductScreenState extends State<ProductScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GestureDetector(
-                          onTap: (){},
+                          onTap: (){
+                            Navigator.pop(context);
+                          },
                           child: const Icon(Icons.close, color: Colors.black,),
                         ),
                         GestureDetector(
@@ -54,7 +60,7 @@ class _ProductScreenState extends State<ProductScreen> {
                           width: MediaQuery.of(context).size.width,
                           child: PageView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: 4,
+                              itemCount: widget.shoe.imageUrl.length,
                               controller: _pageController,
                               onPageChanged: (page){
                                 productScreenNotifier.activePage = page;
@@ -66,7 +72,8 @@ class _ProductScreenState extends State<ProductScreen> {
                                       height: MediaQuery.of(context).size.height * 0.39,
                                       width: MediaQuery.of(context).size.width,
                                       color: const Color(0XFFEBEEEF),
-                                      child: CachedNetworkImage(imageUrl: "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/a832b860f78f4e80901baf1d017db635_9366/Retrocross_Spikeless_Golf_Shoes_White_GV6912_01_standard.jpg"),
+                                      child: CachedNetworkImage(
+                                          imageUrl: widget.shoe.imageUrl[index]),
                                     ),
                                     Positioned(
                                       top: MediaQuery.of(context).size.height * 0.109,
@@ -81,7 +88,8 @@ class _ProductScreenState extends State<ProductScreen> {
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: List<Widget>.generate(
-                                              4, (index) => Padding(
+                                                  widget.shoe.imageUrl.length,
+                                                  (index) => Padding(
                                             padding: const EdgeInsets.symmetric(horizontal: 4),
                                             child: CircleAvatar(
                                               radius: 5,
@@ -90,14 +98,38 @@ class _ProductScreenState extends State<ProductScreen> {
                                               Colors.black : Colors.grey,
                                             ) ,
                                           )),
-                                        )
-
-                                    )
+                                        )),
                                   ],
+
                                 );
                               }
 
                           ),
+                        ),
+                        Positioned(
+                            bottom: 10,
+                            child: ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(30),
+                                topRight: Radius.circular(30),
+                              ),
+                              child: Container(
+                                height: MediaQuery.of(context).size.height * 0.645,
+                                width: MediaQuery.of(context).size.width,
+                                color: Colors.white,
+                                child: Padding(
+                                    padding: const EdgeInsets.all(12),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          widget.shoe.name,
+                                          style: appStyle(30, Colors.black87, FontWeight.bold),)
+                                      ],
+                                    ),
+                                ),
+                              ),
+                            )
                         )
                       ],
                     ),
