@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:online_shoe_app/controllers/cartScreenProvider.dart';
 import 'package:online_shoe_app/controllers/mainScreenProvider.dart';
 import 'package:online_shoe_app/controllers/productScreenProvider.dart';
 import 'package:online_shoe_app/views/ui/main_screen.dart';
@@ -17,6 +18,7 @@ void main() async{
       providers: [
         ChangeNotifierProvider<MainScreenNotifier>(create: (_)=> MainScreenNotifier()),
         ChangeNotifierProvider(create: (_)=> ProductScreenNotifier()),
+        ChangeNotifierProvider(create: (_)=> CartScreenNotifier()),
       ],
       child: const MyApp()));
 }
