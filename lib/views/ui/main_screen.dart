@@ -14,13 +14,13 @@ import '../shared/app_style.dart';
 import '../shared/navIcon.dart';
 
 class MainScreen extends StatelessWidget {
-  const MainScreen({Key? key}) : super(key: key);
-  final List<Widget> pageList = const [
-    HomeScreen(),
+  MainScreen({Key? key}) : super(key: key);
+  final List<Widget> pageList = [
+    const HomeScreen(),
     CartScreen(),
-    AddScreen(),
-    ProfileScreen(),
-    SearchScreen()
+    const AddScreen(),
+    const ProfileScreen(),
+    const SearchScreen()
   ];
 
   @override

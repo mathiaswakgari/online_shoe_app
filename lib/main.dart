@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:online_shoe_app/controllers/mainScreenProvider.dart';
 import 'package:online_shoe_app/controllers/productScreenProvider.dart';
 import 'package:online_shoe_app/views/ui/main_screen.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async{
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  await Hive.openBox("cart");
+  await Hive.openBox("liked");
+
   runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider<MainScreenNotifier>(create: (_)=> MainScreenNotifier()),
@@ -24,7 +32,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MainScreen()
+      home: MainScreen()
     );
   }
 }

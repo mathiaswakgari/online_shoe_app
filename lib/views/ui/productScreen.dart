@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:hive/hive.dart';
 import 'package:online_shoe_app/controllers/productScreenProvider.dart';
 import 'package:online_shoe_app/models/shoeModel.dart';
 import 'package:online_shoe_app/views/shared/app_style.dart';
@@ -19,6 +20,11 @@ class ProductScreen extends StatefulWidget {
 class _ProductScreenState extends State<ProductScreen> {
 
   final PageController _pageController = PageController();
+  final _cartBox = Hive.box('cart');
+
+  Future<void> _createCart(Map<String, dynamic> newCart)async{
+    await _cartBox.add(newCart);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -234,6 +240,21 @@ class _ProductScreenState extends State<ProductScreen> {
                                                         selectedColor: Colors.black,
                                                         selected: sizes["isSelected"],
                                                       onSelected: (selection){
+
+                                                          if(productScreenNotifier
+                                                              .sizes.contains(sizes[
+                                                                'size'])){
+                                                            productScreenNotifier.
+                                                            sizes.remove(sizes['size']);
+                                                          }
+
+                                                          else{
+                                                            productScreenNotifier.
+                                                            sizes.add(sizes['size']);
+                                                          }
+
+                                                          print(productScreenNotifier.sizes);
+
                                                           productScreenNotifier.toggleCheck(index);
                                                       },
                                                     ),
@@ -277,7 +298,20 @@ class _ProductScreenState extends State<ProductScreen> {
                                                   style:ElevatedButton.styleFrom(
                                                     backgroundColor: Colors.black
                                                   ),
-                                                  onPressed: (){},
+                                                  onPressed: ()async{
+                                                      _createCart({
+                                                        "id": widget.shoe.id,
+                                                        "name": widget.shoe.name,
+                                                        "category" : widget.shoe.category,
+                                                        "sizes": widget.shoe.sizes,
+                                                        "imageUrl": widget.shoe.imageUrl[0],
+                                                        "price": widget.shoe.price,
+                                                        "qty": 1,
+                                                      });
+                                                      productScreenNotifier
+                                                          .sizes.clear();
+                                                      Navigator.pop(context);
+                                                    },
                                                   child: Text(
                                                       "Add to cart",
                                                       style: appStyle(18, Colors.white, FontWeight.bold),

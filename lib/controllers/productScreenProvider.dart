@@ -5,10 +5,12 @@ class ProductScreenNotifier extends ChangeNotifier{
   int _activePage = 0;
   double _rating = 0;
   List<dynamic> _selectedSizes = [];
+  List<dynamic> _sizes = [];
 
   int get activePage => _activePage;
   double get rating => _rating;
   List<dynamic> get selectedSizes => _selectedSizes;
+  List<dynamic> get sizes => _sizes;
 
   set activePage(int newIndex){
     _activePage = newIndex;
@@ -17,6 +19,11 @@ class ProductScreenNotifier extends ChangeNotifier{
 
   set selectedSizes(List<dynamic> newList){
     _selectedSizes = newList;
+    notifyListeners();
+  }
+
+  set sizes(List<dynamic> newSizes){
+    _sizes = newSizes;
     notifyListeners();
   }
 
