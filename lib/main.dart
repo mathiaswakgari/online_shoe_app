@@ -12,7 +12,7 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox("cart");
-  await Hive.openBox("liked");
+  await Hive.openBox("wishlist");
 
   runApp(MultiProvider(
       providers: [

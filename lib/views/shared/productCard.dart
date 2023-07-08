@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:online_shoe_app/views/shared/app_style.dart';
+import 'package:online_shoe_app/views/ui/wishlistScreen.dart';
+
+import '../../models/wishList.dart';
 
 class ShoeCard extends StatefulWidget {
   const ShoeCard(
@@ -24,6 +28,28 @@ class ShoeCard extends StatefulWidget {
 
 class _ShoeCardState extends State<ShoeCard> {
   bool selected = true;
+  final _wishlistBox = Hive.box("wishlist");
+
+  Future<void> _createWishlist(Map<String, dynamic> wishlist)async{
+    await _wishlistBox.add(wishlist);
+    getWishlists();
+  }
+
+  getWishlists(){
+    final wishlistData = _wishlistBox.keys.map((key){
+      final shoe = _wishlistBox.get(key);
+
+      return {
+        "key": key,
+        "id":shoe["id"]
+      };
+    }).toList();
+
+    favorites = wishlistData.toList();
+    ids = favorites.map((item) => item['id']).toList();
+    setState(() {});
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -58,8 +84,28 @@ class _ShoeCardState extends State<ShoeCard> {
                       right: 10,
                         top: 10,
                         child: GestureDetector(
-                          onTap: (){},
-                          child: const Icon(CupertinoIcons.heart),
+                          onTap: ()async{
+                            if(ids.contains(widget.id)){
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context)=> const AddScreen()
+                                  )
+                              );
+                            }
+                            else{
+                              _createWishlist({
+                                "id": widget.id,
+                                "name": widget.name,
+                                "category": widget.category,
+                                "price": widget.price,
+                                "imageUrl": widget.image,
+                              });
+                            }
+                          },
+                          child: ids.contains(widget.id)?
+                              const Icon(CupertinoIcons.heart_fill):
+                              const Icon(CupertinoIcons.heart),
                         ))
                   ],
                 ),

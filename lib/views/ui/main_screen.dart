@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:online_shoe_app/controllers/mainScreenProvider.dart';
 import 'package:online_shoe_app/views/shared/bottomNavigationBar.dart';
-import 'package:online_shoe_app/views/ui/addScreen.dart';
+import 'package:online_shoe_app/views/ui/wishlistScreen.dart';
 import 'package:online_shoe_app/views/ui/cartScreen.dart';
 import 'package:online_shoe_app/views/ui/homeScreen.dart';
 import 'package:online_shoe_app/views/ui/productScreen.dart';
