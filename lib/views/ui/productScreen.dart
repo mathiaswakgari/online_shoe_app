@@ -6,7 +6,10 @@ import 'package:hive/hive.dart';
 import 'package:online_shoe_app/controllers/productScreenProvider.dart';
 import 'package:online_shoe_app/models/shoeModel.dart';
 import 'package:online_shoe_app/views/shared/app_style.dart';
+import 'package:online_shoe_app/views/ui/wishlistScreen.dart';
 import 'package:provider/provider.dart';
+
+import '../../models/wishList.dart';
 
 class ProductScreen extends StatefulWidget {
   final Shoe shoe;
@@ -21,6 +24,28 @@ class _ProductScreenState extends State<ProductScreen> {
 
   final PageController _pageController = PageController();
   final _cartBox = Hive.box('cart');
+
+  final _wishlistBox = Hive.box("wishlist");
+
+  Future<void> _createWishlist(Map<String, dynamic> wishlist)async{
+    await _wishlistBox.add(wishlist);
+    getWishlists();
+  }
+
+  getWishlists(){
+    final wishlistData = _wishlistBox.keys.map((key){
+      final shoe = _wishlistBox.get(key);
+
+      return {
+        "key": key,
+        "id":shoe["id"]
+      };
+    }).toList();
+
+    favorites = wishlistData.toList();
+    ids = favorites.map((item) => item['id']).toList();
+    setState(() {});
+  }
 
   Future<void> _createCart(Map<String, dynamic> newCart)async{
     await _cartBox.add(newCart);
@@ -85,7 +110,29 @@ class _ProductScreenState extends State<ProductScreen> {
                                     Positioned(
                                       top: MediaQuery.of(context).size.height * 0.109,
                                       right: 20 ,
-                                      child: const Icon(CupertinoIcons.heart),
+                                      child: GestureDetector(
+                                          onTap: ()async{
+                                            if(ids.contains(widget.shoe.id)){
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context)=> const AddScreen()
+                                                  )
+                                              );
+                                            }
+                                            else{
+                                              _createWishlist({
+                                                "id": widget.shoe.id,
+                                                "name": widget.shoe.name,
+                                                "category": widget.shoe.category,
+                                                "price": widget.shoe.price,
+                                                "imageUrl": widget.shoe.imageUrl[0],
+                                              });
+                                            }
+                                          },
+                                          child: ids.contains(widget.shoe.id)?
+                                          const Icon(CupertinoIcons.heart_fill):
+                                          const Icon(CupertinoIcons.heart)),
                                     ),
                                     Positioned(
                                         bottom: 0,
