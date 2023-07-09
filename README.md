@@ -1,6 +1,6 @@
 # online_shoe_app
 
-A shoe shooping application
+Adidas Shoe Collection application
 
 ## Getting Started
 
