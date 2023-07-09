@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:hive/hive.dart';
 import 'package:online_shoe_app/controllers/productScreenProvider.dart';
+import 'package:online_shoe_app/controllers/wishlistProvider.dart';
 import 'package:online_shoe_app/models/shoeModel.dart';
 import 'package:online_shoe_app/views/shared/app_style.dart';
 import 'package:online_shoe_app/views/ui/wishlistScreen.dart';
@@ -27,32 +28,15 @@ class _ProductScreenState extends State<ProductScreen> {
 
   final _wishlistBox = Hive.box("wishlist");
 
-  Future<void> _createWishlist(Map<String, dynamic> wishlist)async{
-    await _wishlistBox.add(wishlist);
-    getWishlists();
-  }
-
-  getWishlists(){
-    final wishlistData = _wishlistBox.keys.map((key){
-      final shoe = _wishlistBox.get(key);
-
-      return {
-        "key": key,
-        "id":shoe["id"]
-      };
-    }).toList();
-
-    favorites = wishlistData.toList();
-    ids = favorites.map((item) => item['id']).toList();
-    setState(() {});
-  }
-
   Future<void> _createCart(Map<String, dynamic> newCart)async{
     await _cartBox.add(newCart);
   }
 
   @override
   Widget build(BuildContext context) {
+    final wishlistNotifier = Provider.of<WishlistNotifier>(context, listen: true);
+    wishlistNotifier.getWishlists();
+
     return Scaffold(
       body: Consumer<ProductScreenNotifier>(
           builder: (context, productScreenNotifier ,child){
@@ -110,29 +94,35 @@ class _ProductScreenState extends State<ProductScreen> {
                                     Positioned(
                                       top: MediaQuery.of(context).size.height * 0.109,
                                       right: 20 ,
-                                      child: GestureDetector(
-                                          onTap: ()async{
-                                            if(ids.contains(widget.shoe.id)){
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context)=> const AddScreen()
-                                                  )
-                                              );
-                                            }
-                                            else{
-                                              _createWishlist({
-                                                "id": widget.shoe.id,
-                                                "name": widget.shoe.name,
-                                                "category": widget.shoe.category,
-                                                "price": widget.shoe.price,
-                                                "imageUrl": widget.shoe.imageUrl[0],
-                                              });
-                                            }
-                                          },
-                                          child: ids.contains(widget.shoe.id)?
-                                          const Icon(CupertinoIcons.heart_fill):
-                                          const Icon(CupertinoIcons.heart)),
+                                      child: Consumer<WishlistNotifier>(
+                                        builder: (context, wishlistNotifier, child){
+                                          return GestureDetector(
+                                              onTap: ()async{
+                                                if(wishlistNotifier.ids.contains(widget.shoe.id)){
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context)=> const AddScreen()
+                                                      )
+                                                  );
+                                                }
+                                                else{
+                                                  wishlistNotifier.createWishlist({
+                                                    "id": widget.shoe.id,
+                                                    "name": widget.shoe.name,
+                                                    "category": widget.shoe.category,
+                                                    "price": widget.shoe.price,
+                                                    "imageUrl": widget.shoe.imageUrl[0],
+                                                  });
+                                                }
+                                                setState(() {
+                                                });
+                                              },
+                                              child: wishlistNotifier.ids.contains(widget.shoe.id)?
+                                              const Icon(CupertinoIcons.heart_fill):
+                                              const Icon(CupertinoIcons.heart));
+                                        },
+                                      )
                                     ),
                                     Positioned(
                                         bottom: 0,

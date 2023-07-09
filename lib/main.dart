@@ -4,6 +4,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:online_shoe_app/controllers/cartScreenProvider.dart';
 import 'package:online_shoe_app/controllers/mainScreenProvider.dart';
 import 'package:online_shoe_app/controllers/productScreenProvider.dart';
+import 'package:online_shoe_app/controllers/wishlistProvider.dart';
 import 'package:online_shoe_app/views/ui/main_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +20,7 @@ void main() async{
         ChangeNotifierProvider<MainScreenNotifier>(create: (_)=> MainScreenNotifier()),
         ChangeNotifierProvider(create: (_)=> ProductScreenNotifier()),
         ChangeNotifierProvider(create: (_)=> CartScreenNotifier()),
+        ChangeNotifierProvider(create: (_)=> WishlistNotifier()),
       ],
       child: const MyApp()));
 }
