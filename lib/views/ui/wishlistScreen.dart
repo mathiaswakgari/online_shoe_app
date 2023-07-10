@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:online_shoe_app/controllers/wishlistProvider.dart';
 import 'package:provider/provider.dart';
-
-import '../../models/wishList.dart';
 import '../shared/app_style.dart';
 
 class AddScreen extends StatefulWidget {

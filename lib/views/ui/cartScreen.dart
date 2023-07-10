@@ -9,31 +9,19 @@ import 'package:text_scroll/text_scroll.dart';
 
 import '../shared/app_style.dart';
 
-class CartScreen extends StatelessWidget {
-  CartScreen({Key? key}) : super(key: key);
+class CartScreen extends StatefulWidget {
+  const CartScreen({Key? key}) : super(key: key);
 
-  final _cartBox = Hive.box("cart");
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
 
+class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<dynamic> cart = [];
-    final cartData = _cartBox.keys.map((key) {
-      final shoe = _cartBox.get(key);
-      return {
-        "key": key,
-        "id": shoe['id'],
-        "category": shoe['category'],
-        "name": shoe['name'],
-        "imageUrl": shoe['imageUrl'],
-        "price": shoe['price'],
-        "sizes": shoe['sizes'],
-        "qty": shoe['qty'],
-      };
-    }).toList();
-
-    cart = cartData.reversed.toList();
-
+    final cartProvider = Provider.of<CartScreenNotifier>(context);
+    cartProvider.getCart();
     return Scaffold(
       backgroundColor: const Color(0xFFE2E2E2),
       body: Consumer<CartScreenNotifier>(
@@ -58,17 +46,15 @@ class CartScreen extends StatelessWidget {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.65,
                       child: ListView.builder(
-                          itemCount: cart.length,
+                          itemCount: cartProvider.cart.length,
                           padding: EdgeInsets.zero,
                           itemBuilder: (context, index){
-                            final data = cart[index];
+                            final data = cartProvider.cart[index];
 
                             final filteredSizes = data['sizes'].firstWhere((sizes)=>
                             sizes['isSelected'] == true
                             );
-
                             final filteredName = data['name'].substring(0, 15);
-
 
                             return Padding(
                               padding: const EdgeInsets.all(8),
@@ -81,7 +67,11 @@ class CartScreen extends StatelessWidget {
                                       children: [
                                         SlidableAction(
                                           flex: 1,
-                                          onPressed: (context){},
+                                          onPressed: (context){
+                                            cartProvider.deleteCart(data['key']);
+                                            setState(() {
+                                            });
+                                          },
                                           backgroundColor: const Color(0xFF000000),
                                           foregroundColor: Colors.white,
                                           icon: CupertinoIcons.delete,
