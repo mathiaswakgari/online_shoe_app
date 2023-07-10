@@ -10,7 +10,11 @@ class WishlistNotifier extends ChangeNotifier{
   List<dynamic> _ids = [];
   List<dynamic> _favorites = [];
 
+  List<dynamic> _wishlists = [];
+
   List<dynamic> get ids => _ids;
+  List<dynamic> get favorites => _favorites;
+  List<dynamic> get wishlists => _wishlists;
 
   set ids(List<dynamic> ids){
     _ids = ids;
@@ -36,7 +40,26 @@ class WishlistNotifier extends ChangeNotifier{
     _ids = _favorites.map((item) => item['id']).toList();
   }
 
+  getWishlistData(){
+    final wishListdata = _wishlistBox.keys.map((key){
+      final shoe = _wishlistBox.get(key);
+      return{
+        "key": key,
+        "id": shoe['id'],
+        "name": shoe['name'],
+        "category": shoe['category'],
+        "price": shoe['price'],
+        "imageUrl": shoe["imageUrl"]
+      };
+    }).toList();
+    _wishlists = wishListdata.reversed.toList();
+  }
+
   Future<void> createWishlist(Map<String, dynamic> wishlist)async{
     await _wishlistBox.add(wishlist);
+  }
+
+  Future<void>deleteWishlist(int key) async{
+    await _wishlistBox.delete(key);
   }
 }

@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:online_shoe_app/controllers/productScreenProvider.dart';
+import 'package:online_shoe_app/controllers/wishlistProvider.dart';
 import 'package:online_shoe_app/views/shared/app_style.dart';
 import 'package:online_shoe_app/views/ui/wishlistScreen.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/wishList.dart';
 
@@ -30,28 +33,12 @@ class _ShoeCardState extends State<ShoeCard> {
   bool selected = true;
   final _wishlistBox = Hive.box("wishlist");
 
-  Future<void> _createWishlist(Map<String, dynamic> wishlist)async{
-    await _wishlistBox.add(wishlist);
-    getWishlists();
-  }
 
-  getWishlists(){
-    final wishlistData = _wishlistBox.keys.map((key){
-      final shoe = _wishlistBox.get(key);
-
-      return {
-        "key": key,
-        "id":shoe["id"]
-      };
-    }).toList();
-
-    favorites = wishlistData.toList();
-    ids = favorites.map((item) => item['id']).toList();
-    setState(() {});
-  }
   
   @override
   Widget build(BuildContext context) {
+    final wishlistNotifier = Provider.of<WishlistNotifier>(context, listen: true);
+    wishlistNotifier.getWishlists();
     return Padding(
         padding: const EdgeInsets.fromLTRB(8, 0, 29, 0),
         child: ClipRRect(
@@ -85,7 +72,7 @@ class _ShoeCardState extends State<ShoeCard> {
                         top: 10,
                         child: GestureDetector(
                           onTap: ()async{
-                            if(ids.contains(widget.id)){
+                            if(wishlistNotifier.ids.contains(widget.id)){
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -94,7 +81,7 @@ class _ShoeCardState extends State<ShoeCard> {
                               );
                             }
                             else{
-                              _createWishlist({
+                              wishlistNotifier.createWishlist({
                                 "id": widget.id,
                                 "name": widget.name,
                                 "category": widget.category,
@@ -102,8 +89,9 @@ class _ShoeCardState extends State<ShoeCard> {
                                 "imageUrl": widget.image,
                               });
                             }
+                            setState(() {});
                           },
-                          child: ids.contains(widget.id)?
+                          child: wishlistNotifier.ids.contains(widget.id)?
                               const Icon(CupertinoIcons.heart_fill):
                               const Icon(CupertinoIcons.heart),
                         ))

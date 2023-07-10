@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:online_shoe_app/controllers/wishlistProvider.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/wishList.dart';
 import '../shared/app_style.dart';
@@ -16,27 +18,12 @@ class AddScreen extends StatefulWidget {
 class _AddScreenState extends State<AddScreen> {
   final _wishlistBox = Hive.box("wishlist");
 
-  _deleteWishlist(int key) async{
-    await _wishlistBox.delete(key);
-    setState(() {
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {
-    List<dynamic> wishlists = [];
-    final wishListdata = _wishlistBox.keys.map((key){
-      final shoe = _wishlistBox.get(key);
-      return{
-        "key": key,
-        "id": shoe['id'],
-        "name": shoe['name'],
-        "category": shoe['category'],
-        "price": shoe['price'],
-        "imageUrl": shoe["imageUrl"]
-      };
-    }).toList();
-    wishlists = wishListdata.reversed.toList();
+  final wishlistNotifier = Provider.of<WishlistNotifier>(context);
+  wishlistNotifier.getWishlistData();
 
     return Scaffold(
       appBar: AppBar(
@@ -79,7 +66,7 @@ class _AddScreenState extends State<AddScreen> {
               left: 0,
               child: Padding(
                   padding: const EdgeInsets.all(8),
-                  child:wishlists.isEmpty ?
+                  child:wishlistNotifier.wishlists.isEmpty ?
                   Center(
                     child: Text(
                       "Currently Empty\n Ooops...",
@@ -87,10 +74,10 @@ class _AddScreenState extends State<AddScreen> {
                     ),
                   )
                   :ListView.builder(
-                      itemCount: wishlists.length,
+                      itemCount: wishlistNotifier.wishlists.length,
                       padding: const EdgeInsets.only(top: 100),
                       itemBuilder: (BuildContext context, int index){
-                        final shoe = wishlists[index];
+                        final shoe = wishlistNotifier.wishlists[index];
                         return Padding(padding: const EdgeInsets.all(8),
                           child: ClipRRect(
                             borderRadius: const BorderRadius.all(Radius.circular(12)),
@@ -161,9 +148,8 @@ class _AddScreenState extends State<AddScreen> {
                                     padding: const EdgeInsets.all(8),
                                     child: GestureDetector(
                                       onTap: ()async{
-                                        _deleteWishlist(shoe['key']);
-                                        ids.removeWhere((element) => element == shoe['id']);
-
+                                        wishlistNotifier.deleteWishlist(shoe['key']);
+                                        wishlistNotifier.ids.removeWhere((element) => element == shoe['id']);
                                       },
                                       child: const Icon(CupertinoIcons.heart_slash_fill),
                                     ),
