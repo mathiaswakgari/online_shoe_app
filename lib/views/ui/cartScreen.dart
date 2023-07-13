@@ -22,6 +22,7 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartScreenNotifier>(context);
     cartProvider.getCart();
+
     return Scaffold(
       backgroundColor: const Color(0xFFE2E2E2),
       body: Consumer<CartScreenNotifier>(
@@ -45,7 +46,25 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.65,
-                      child: ListView.builder(
+                      child:cartProvider.cart.isEmpty ?
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Ooops, Your Cart",
+                              style: appStyle(40, Colors.black, FontWeight.bold),
+                            ),
+                            Text(
+                              "is Empty",
+                              style: appStyle(40, Colors.black, FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ):
+                      ListView.builder(
                           itemCount: cartProvider.cart.length,
                           padding: EdgeInsets.zero,
                           itemBuilder: (context, index){
@@ -110,16 +129,15 @@ class _CartScreenState extends State<CartScreen> {
                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  TextScroll(
-                                                    filteredName,
-                                                    style: appStyle(16, Colors.black, FontWeight.bold),
-                                                    mode: TextScrollMode.bouncing,
-                                                    velocity: const Velocity(pixelsPerSecond: Offset(150, 0)),
-                                                    delayBefore: const Duration(milliseconds: 500),
-                                                    numberOfReps: 5,
-                                                    pauseBetween: const Duration(milliseconds: 50),
-                                                    textAlign: TextAlign.right,
-                                                    selectable: true,
+                                                  Container(
+                                                    width: MediaQuery.of(context)
+                                                        .size.width * 0.52,
+                                                    height: 25,
+                                                    child: Text(
+                                                      data['name'],
+                                                      overflow: TextOverflow.ellipsis,
+                                                      style: appStyle(16, Colors.black, FontWeight.bold),
+                                                    ),
                                                   ),
                                                   const SizedBox(
                                                     height: 5,
@@ -219,23 +237,47 @@ class _CartScreenState extends State<CartScreen> {
                     )
                   ],
                 ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50,
-                    child: ElevatedButton(
-                        style:ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black
-                        ),
-                        onPressed: ()async{
-                        },
-                        child: Text(
-                          "Proceed to Checkout",
-                          style: appStyle(18, Colors.white, FontWeight.bold),
-                        )),
-                  ),
-                )
+                if(cartProvider.cart.isNotEmpty)
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: 50,
+                      child: ElevatedButton(
+                          style:ElevatedButton.styleFrom(
+                              backgroundColor: Colors.black
+                          ),
+                          onPressed: ()async{
+                          },
+                          child: Text(
+                            "Proceed to Checkout",
+                            style: appStyle(18, Colors.white, FontWeight.bold),
+                          )),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: 50,
+                      child: ElevatedButton(
+                          style:ElevatedButton.styleFrom(
+                              backgroundColor: Colors.redAccent
+                          ),
+                          onPressed: (){
+                            cartProvider.clearCart();
+                            setState(() {
+                            });
+                          },
+                          child: Text(
+                            "Clear Cart",
+                            style: appStyle(18, Colors.white, FontWeight.bold),
+                          )),
+                    ),
+                  ],
+                ),
+
               ],
             ),
           );

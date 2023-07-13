@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:online_shoe_app/controllers/productScreenProvider.dart';
 import 'package:online_shoe_app/views/shared/categoryButton.dart';
 import 'package:online_shoe_app/views/shared/customSpace.dart';
 import 'package:online_shoe_app/views/shared/staggerTile.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/shoeModel.dart';
 import '../../services/helper.dart';
@@ -23,27 +25,13 @@ class ProductCategory extends StatefulWidget {
 class _ProductCategoryState extends State<ProductCategory> with TickerProviderStateMixin {
   late final TabController _tabController = TabController(length: 2, vsync: this, initialIndex: widget.tabIndex);
 
-  late Future<List<Shoe>> _mens;
-  late Future<List<Shoe>> _womens;
-
-
-  void getMens(){
-    _mens = Helper().getMens();
-  }
-  void getWomens(){
-    _womens = Helper().getWomens();
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getMens();
-    getWomens();
-  }
-
   @override
   Widget build(BuildContext context) {
+
+    final productNotifier = Provider.of<ProductScreenNotifier>(context);
+    productNotifier.getWomens();
+    productNotifier.getMens();
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xFFE2E2E2),
@@ -112,17 +100,13 @@ class _ProductCategoryState extends State<ProductCategory> with TickerProviderSt
                   child: TabBarView(
                       controller: _tabController,
                       children: [
-                        LatestShoesStagger(shoes: _mens),
-                        LatestShoesStagger(shoes: _womens)
+                        LatestShoesStagger(shoes: productNotifier.mens),
+                        LatestShoesStagger(shoes: productNotifier.womens)
                       ]
-
-
                   ),
                 ),
               )
             ],
-
-
           ),
         ),
       ),
@@ -199,8 +183,6 @@ class _ProductCategoryState extends State<ProductCategory> with TickerProviderSt
                             _value = value;
                         }),
                     const CustomSpace()
-
-
                   ],
                 ),
               )

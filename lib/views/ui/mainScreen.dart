@@ -6,8 +6,6 @@ import 'package:online_shoe_app/views/ui/wishlistScreen.dart';
 import 'package:online_shoe_app/views/ui/cartScreen.dart';
 import 'package:online_shoe_app/views/ui/homeScreen.dart';
 import 'package:online_shoe_app/views/ui/productScreen.dart';
-import 'package:online_shoe_app/views/ui/profileScreen.dart';
-import 'package:online_shoe_app/views/ui/searchScreen.dart';
 import 'package:provider/provider.dart';
 
 import '../shared/app_style.dart';
@@ -17,10 +15,8 @@ class MainScreen extends StatelessWidget {
   MainScreen({Key? key}) : super(key: key);
   final List<Widget> pageList = [
     const HomeScreen(),
-    CartScreen(),
-    const AddScreen(),
-    const ProfileScreen(),
-    const SearchScreen()
+    const CartScreen(),
+    const WishlistScreen(),
   ];
 
   @override

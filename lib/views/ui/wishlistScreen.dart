@@ -6,14 +6,14 @@ import 'package:online_shoe_app/controllers/wishlistProvider.dart';
 import 'package:provider/provider.dart';
 import '../shared/app_style.dart';
 
-class AddScreen extends StatefulWidget {
-  const AddScreen({Key? key}) : super(key: key);
+class WishlistScreen extends StatefulWidget {
+  const WishlistScreen({Key? key}) : super(key: key);
 
   @override
-  State<AddScreen> createState() => _AddScreenState();
+  State<WishlistScreen> createState() => _WishlistScreenState();
 }
 
-class _AddScreenState extends State<AddScreen> {
+class _WishlistScreenState extends State<WishlistScreen> {
   final _wishlistBox = Hive.box("wishlist");
 
 

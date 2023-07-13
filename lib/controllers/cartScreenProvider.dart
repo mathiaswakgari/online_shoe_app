@@ -55,5 +55,8 @@ class CartScreenNotifier extends ChangeNotifier{
   Future<void> clearCart() async{
     await _cartBox.clear();
   }
+  Future<void> createCart(Map<String, dynamic> newCart)async{
+    await _cartBox.add(newCart);
+  }
 
 }

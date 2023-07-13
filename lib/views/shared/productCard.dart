@@ -31,10 +31,7 @@ class ShoeCard extends StatefulWidget {
 
 class _ShoeCardState extends State<ShoeCard> {
   bool selected = true;
-  final _wishlistBox = Hive.box("wishlist");
 
-
-  
   @override
   Widget build(BuildContext context) {
     final wishlistNotifier = Provider.of<WishlistNotifier>(context, listen: true);
@@ -76,7 +73,7 @@ class _ShoeCardState extends State<ShoeCard> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context)=> const AddScreen()
+                                      builder: (context)=> const WishlistScreen()
                                   )
                               );
                             }
