@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:online_shoe_app/controllers/productScreenProvider.dart';
 import 'package:online_shoe_app/services/helper.dart';
 import 'package:online_shoe_app/views/shared/app_style.dart';
 import 'package:online_shoe_app/views/shared/productCard.dart';
 import 'package:online_shoe_app/models/shoeModel.dart';
+import 'package:provider/provider.dart';
 
 import '../shared/LatestShoes.dart';
 import '../shared/homeWidgets.dart';
@@ -17,27 +19,14 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late final TabController _tabController = TabController(length: 2, vsync: this);
-  late Future<List<Shoe>> _mens;
-  late Future<List<Shoe>> _womens;
 
-
-  void getMens(){
-    _mens = Helper().getMens();
-  }
-  void getWomens(){
-    _womens = Helper().getWomens();
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getMens();
-    getWomens();
-  }
 
   @override
   Widget build(BuildContext context) {
+    final productNotifier = Provider.of<ProductScreenNotifier>(context);
+    productNotifier.getMens();
+    productNotifier.getWomens();
+
     return Scaffold(
       backgroundColor: const Color(0xFFE2E2E2),
       body: SizedBox(
@@ -57,16 +46,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Text("adidas", style: appStyleTwo(
-              //     52,
-              //     1.5,
-              //     Colors.white,
-              //     FontWeight.bold),),
-              // Text("Shoe Collection", style: appStyleTwo(
-              //     42,
-              //     1.2,
-              //     Colors.white,
-              //     FontWeight.bold),),
               Padding(
                 padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.165),
                 child: TabBar(
@@ -92,17 +71,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             child: TabBarView(
                 controller: _tabController,
                 children: [
-                  HomeWidget(shoes: _mens, tabIndex: 0,),
-                  HomeWidget(shoes: _womens, tabIndex: 1,),
+                  HomeWidget(shoes: productNotifier.mens, tabIndex: 0,),
+                  HomeWidget(shoes: productNotifier.womens, tabIndex: 1,),
                 ]
-
-
             ),
           ),
-
-
         ],
-
       ),
       )
     );

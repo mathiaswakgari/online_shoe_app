@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../models/shoeModel.dart';
+import '../services/helper.dart';
+
 class ProductScreenNotifier extends ChangeNotifier{
 
   int _activePage = 0;
@@ -11,6 +14,19 @@ class ProductScreenNotifier extends ChangeNotifier{
   double get rating => _rating;
   List<dynamic> get selectedSizes => _selectedSizes;
   List<dynamic> get sizes => _sizes;
+
+
+  late Future<List<Shoe>> mens;
+  late Future<List<Shoe>> womens;
+
+
+  void getMens(){
+    mens = Helper().getMens();
+  }
+  void getWomens(){
+    womens = Helper().getWomens();
+  }
+
 
   set activePage(int newIndex){
     _activePage = newIndex;
