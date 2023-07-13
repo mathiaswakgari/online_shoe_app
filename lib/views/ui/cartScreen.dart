@@ -71,8 +71,10 @@ class _CartScreenState extends State<CartScreen> {
                             final data = cartProvider.cart[index];
 
                             final filteredSizes = data['sizes'].firstWhere((sizes)=>
-                            sizes['isSelected'] == true
+                              sizes['isSelected'] == true, orElse: ()=> null
                             );
+
+                            print("filteredSizes: ${filteredSizes}");
                             final filteredName = data['name'].substring(0, 15);
 
                             return Padding(
@@ -166,7 +168,7 @@ class _CartScreenState extends State<CartScreen> {
                                                         width: 15,
                                                       ),
                                                       Text(
-                                                        filteredSizes['size'],
+                                                        filteredSizes != null ? filteredSizes['size'] : '6.0',
                                                         style: appStyle(18, Colors.grey, FontWeight.w600),
                                                       )
                                                     ],
