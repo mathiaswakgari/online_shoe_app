@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_shoe_app/controllers/productScreenProvider.dart';
 import 'package:online_shoe_app/views/shared/productCard.dart';
 import 'package:online_shoe_app/views/ui/productCatagory.dart';
@@ -24,7 +25,7 @@ class HomeWidget extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-            height: MediaQuery.of(context).size.height * 0.350,
+            height: 284.h,
             child: FutureBuilder<List<Shoe>>(
               future: _shoes,
               builder: (context, snapshot){
@@ -70,7 +71,7 @@ class HomeWidget extends StatelessWidget {
         Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              padding: EdgeInsets.symmetric(horizontal: 8.0.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -96,9 +97,9 @@ class HomeWidget extends StatelessWidget {
                           style: appStyle(22, Colors.black, FontWeight.w500),
                         ),
                       ),
-                      const Icon(
+                      Icon(
                         Icons.keyboard_arrow_right,
-                        size: 20,
+                        size: 20.h,
 
                       )
                     ],
@@ -109,7 +110,7 @@ class HomeWidget extends StatelessWidget {
           ],
         ),
         SizedBox(
-            height: MediaQuery.of(context).size.height * 0.10,
+            height: 81.2.h,
             child: FutureBuilder<List<Shoe>>(
               future: _shoes,
               builder: (context, snapshot){
@@ -127,7 +128,7 @@ class HomeWidget extends StatelessWidget {
                       itemBuilder: (context, index){
                         final shoe = snapshot.data![index];
                         return Padding(
-                          padding: const EdgeInsets.only(left: 12.0),
+                          padding: EdgeInsets.only(left: 12.w),
                           child: LatestShoes(imageUrl: shoe.imageUrl[1]),
                         );
                       }

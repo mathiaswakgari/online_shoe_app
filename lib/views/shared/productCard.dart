@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:online_shoe_app/controllers/productScreenProvider.dart';
 import 'package:online_shoe_app/controllers/wishlistProvider.dart';
@@ -37,12 +38,12 @@ class _ShoeCardState extends State<ShoeCard> {
     final wishlistNotifier = Provider.of<WishlistNotifier>(context, listen: true);
     wishlistNotifier.getWishlists();
     return Padding(
-        padding: const EdgeInsets.fromLTRB(8, 0, 29, 0),
+        padding: EdgeInsets.fromLTRB(8.w, 0, 29.w, 0),
         child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(16)),
           child: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width * 0.6,
+            height: 812.h,
+            width: (375 * 0.6).w,
             decoration: const BoxDecoration(
               boxShadow: [
                 BoxShadow(
@@ -59,14 +60,14 @@ class _ShoeCardState extends State<ShoeCard> {
                 Stack(
                   children: [
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.2,
+                      height: (812 * 0.2).h,
                       decoration: BoxDecoration(
                         image: DecorationImage(image: NetworkImage(widget.image))
                       ),
                     ),
                     Positioned(
-                      right: 10,
-                        top: 10,
+                      right: 10.w,
+                        top: 10.h,
                         child: GestureDetector(
                           onTap: ()async{
                             if(wishlistNotifier.ids.contains(widget.id)){
@@ -95,7 +96,7 @@ class _ShoeCardState extends State<ShoeCard> {
                   ],
                 ),
                 Padding(
-                    padding: const EdgeInsets.only(left: 8),
+                    padding: EdgeInsets.only(left: 8.w),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -105,7 +106,7 @@ class _ShoeCardState extends State<ShoeCard> {
                     ),
                 ),
                 Padding(
-                    padding: const EdgeInsets.only(left: 8, right: 8),
+                    padding:EdgeInsets.only(left: 8.w, right: 8.w),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -119,8 +120,8 @@ class _ShoeCardState extends State<ShoeCard> {
                             "Color",
                             style: appStyle(18, Colors.grey, FontWeight.w500),
                           ),
-                          const SizedBox(
-                            width: 5,
+                          SizedBox(
+                            width: 5.w,
                           ),
                           ChoiceChip(
                               label: const Text(""),

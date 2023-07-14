@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'navIcon.dart';
 
@@ -14,12 +15,11 @@ class BottomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(12),
-      margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-      width: 0,
-      decoration: const BoxDecoration(
+      padding: EdgeInsets.all(12.h),
+      margin: EdgeInsets.symmetric(horizontal: 30.w, vertical: 10.h),
+      decoration: BoxDecoration(
           color: Colors.black,
-          borderRadius: BorderRadius.all(Radius.circular(12))
+          borderRadius: BorderRadius.all(Radius.circular(12.h))
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

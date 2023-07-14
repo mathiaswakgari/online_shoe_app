@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:online_shoe_app/controllers/productScreenProvider.dart';
 import 'package:online_shoe_app/views/shared/categoryButton.dart';
@@ -36,13 +37,13 @@ class _ProductCategoryState extends State<ProductCategory> with TickerProviderSt
       child: Scaffold(
         backgroundColor: const Color(0xFFE2E2E2),
         body: SizedBox(
-          height: MediaQuery.of(context).size.height,
+          height: 812.h,
           child: Stack(
             children: [
               Container(
-                padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
-                height: MediaQuery.of(context).size.height * 0.4,
-                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.fromLTRB(16.w, 0, 0, 0),
+                height: (812 * 0.4).h,
+                width: 375.w,
                 decoration: const BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage('images/adidasOne.png'),
@@ -53,7 +54,7 @@ class _ProductCategoryState extends State<ProductCategory> with TickerProviderSt
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                        padding: const EdgeInsets.fromLTRB(6, 12, 16, 18),
+                        padding: EdgeInsets.fromLTRB(6.w, 12.h, 16.w, 18.h),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -77,12 +78,12 @@ class _ProductCategoryState extends State<ProductCategory> with TickerProviderSt
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.055, left: 20),
+                padding: EdgeInsets.only(
+                    top: (812 * 0.055).h, left: 20.w),
                 child: TabBar(
                     indicatorSize: TabBarIndicatorSize.label,
                     indicatorColor: Colors.transparent,
                     controller: _tabController,
-
                     isScrollable: true,
                     labelColor: Colors.white,
                     labelStyle: appStyle(24, Colors.white, FontWeight.bold),
@@ -94,9 +95,9 @@ class _ProductCategoryState extends State<ProductCategory> with TickerProviderSt
               ),
               Padding(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.285, left: 20, right: 20),
+                    top: (812 * 0.285).h, left: 20.w, right: 20.w),
                 child: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(16)),
+                  borderRadius: BorderRadius.all(Radius.circular(16.h)),
                   child: TabBarView(
                       controller: _tabController,
                       children: [
@@ -121,30 +122,30 @@ class _ProductCategoryState extends State<ProductCategory> with TickerProviderSt
         backgroundColor: Colors.transparent,
         barrierColor: Colors.white54,
         builder: (context)=> Container(
-          height: MediaQuery.of(context).size.height * 0.82,
-          decoration: const BoxDecoration(
+          height: (812 * 0.82).h,
+          decoration:  BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
-              topRight: Radius.circular(25),
-              topLeft: Radius.circular(25),
+              topRight: Radius.circular(25.h),
+              topLeft: Radius.circular(25.h),
             )
           ),
           child: Column(
             children: [
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: 10.h,
               ),
               Container(
-                height: 5,
-                width: 40,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                height: 5.h,
+                width: 40.w,
+                decoration:  BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10.h)),
                   color: Colors.black38
                 ),
               ),
 
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.7,
+                height:(812 * 0.7).h,
                 child: Column(
                   children: [
                     const CustomSpace(),

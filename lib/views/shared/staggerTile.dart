@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_shoe_app/views/shared/app_style.dart';
 
 class StaggerTile extends StatefulWidget {
@@ -25,10 +26,10 @@ class _StaggerTileState extends State<StaggerTile> {
 
       decoration: BoxDecoration(
         color: const Color(0xFFEBEEEF),
-        borderRadius: BorderRadius.circular(16)
+        borderRadius: BorderRadius.circular(16.h)
       ),
       child: Padding(
-          padding: const EdgeInsets.all(8),
+          padding: EdgeInsets.all(8.h),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,8 +47,6 @@ class _StaggerTileState extends State<StaggerTile> {
                 ),
               ),
             )
-
-
           ],
         ),
       ),

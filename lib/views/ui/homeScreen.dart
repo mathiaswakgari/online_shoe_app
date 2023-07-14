@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_shoe_app/controllers/productScreenProvider.dart';
 import 'package:online_shoe_app/services/helper.dart';
 import 'package:online_shoe_app/views/shared/app_style.dart';
@@ -30,13 +31,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return Scaffold(
       backgroundColor: const Color(0xFFE2E2E2),
       body: SizedBox(
-      height: MediaQuery.of(context).size.height,
+      height: 812.h,
+      width: 375.w,
       child: Stack(
         children: [
           Container(
-            padding: const EdgeInsets.fromLTRB(16, 45, 0, 0),
-            height: MediaQuery.of(context).size.height * 0.4,
-            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.fromLTRB(16.w, 45.h, 0, 0),
+            height: 330.h,
+            width: 375.w,
             decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage('images/adidasOne.png'),
@@ -47,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.165),
+                padding: EdgeInsets.only(top: 133.98.h),
                 child: TabBar(
                     indicatorSize: TabBarIndicatorSize.label,
                     indicatorColor: Colors.transparent,
@@ -67,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
 
           Padding(
-            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.365),
+            padding: EdgeInsets.only(top: 296.38.h),
             child: TabBarView(
                 controller: _tabController,
                 children: [

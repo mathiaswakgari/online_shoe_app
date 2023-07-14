@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive/hive.dart';
 import 'package:online_shoe_app/controllers/cartScreenProvider.dart';
@@ -28,27 +29,27 @@ class _CartScreenState extends State<CartScreen> {
       body: Consumer<CartScreenNotifier>(
         builder: (context, cartScreenNotifier, child){
           return Padding(
-            padding: const EdgeInsets.all(12),
+            padding: EdgeInsets.all(12.h),
             child: Stack(
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(
-                      height: 40,
+                    SizedBox(
+                      height: 40.h,
                     ),
                     Text(
                       "Cart Collection",
                       style: appStyle(36, Colors.black, FontWeight.bold,),
                     ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: 20.h,
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.65,
+                      height: (812 * 0.65).h,
                       child:cartProvider.cart.isEmpty ?
                       SizedBox(
-                        width: MediaQuery.of(context).size.width,
+                        width: 375.w,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -78,9 +79,9 @@ class _CartScreenState extends State<CartScreen> {
                             final filteredName = data['name'].substring(0, 15);
 
                             return Padding(
-                              padding: const EdgeInsets.all(8),
+                              padding: EdgeInsets.all(8.h),
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(12),
+                                borderRadius: BorderRadius.circular(12.h),
                                 child: Slidable(
                                   key: const ValueKey(0),
                                   endActionPane: ActionPane(
@@ -100,8 +101,8 @@ class _CartScreenState extends State<CartScreen> {
                                         )
                                       ]),
                                   child: Container(
-                                    height: MediaQuery.of(context).size.height * 0.11,
-                                    width: MediaQuery.of(context).size.width,
+                                    height: (812 * 0.11).h,
+                                    width: 375.w,
                                     decoration: BoxDecoration(
                                       color: const Color(0xFFEBEEEF),
                                       boxShadow: [
@@ -120,36 +121,35 @@ class _CartScreenState extends State<CartScreen> {
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsets.all(12),
+                                              padding: EdgeInsets.all(12.h),
                                               child: CachedNetworkImage(
                                                 imageUrl: data['imageUrl'],
-                                                width: 70, height: 70, fit: BoxFit.fill,),
+                                                width: 70.w, height: 70.h, fit: BoxFit.fill,),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.only(top: 12, left: 20),
+                                              padding: EdgeInsets.only(top: 12.h, left: 20.w),
                                               child: Column(
                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   Container(
-                                                    width: MediaQuery.of(context)
-                                                        .size.width * 0.52,
-                                                    height: 25,
+                                                    width: (375 * 0.52).w,
+                                                    height: 25.h,
                                                     child: Text(
                                                       data['name'],
                                                       overflow: TextOverflow.ellipsis,
                                                       style: appStyle(16, Colors.black, FontWeight.bold),
                                                     ),
                                                   ),
-                                                  const SizedBox(
-                                                    height: 5,
+                                                  SizedBox(
+                                                    height: 5.h,
                                                   ),
                                                   Text(
                                                     data['category'],
                                                     style: appStyle(14, Colors.grey, FontWeight.w600),
                                                   ),
-                                                  const SizedBox(
-                                                    height: 5,
+                                                  SizedBox(
+                                                    height: 5.h,
                                                   ),
                                                   Row(
                                                     children: [
@@ -157,15 +157,15 @@ class _CartScreenState extends State<CartScreen> {
                                                         "\$${data['price']}",
                                                         style: appStyle(15, Colors.black87, FontWeight.bold),
                                                       ),
-                                                      const SizedBox(
-                                                        width: 20,
+                                                      SizedBox(
+                                                        width: 20.w,
                                                       ),
                                                       Text(
                                                         "Size",
                                                         style: appStyle(18, Colors.grey, FontWeight.w600),
                                                       ),
-                                                      const SizedBox(
-                                                        width: 15,
+                                                      SizedBox(
+                                                        width: 15.w,
                                                       ),
                                                       Text(
                                                         filteredSizes != null ? filteredSizes['size'] : '6.0',
@@ -179,7 +179,7 @@ class _CartScreenState extends State<CartScreen> {
                                           ],
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.all(8.0),
+                                          padding: EdgeInsets.all(8.0.h),
                                           child: Container(
                                             decoration: const BoxDecoration(
                                                 color: Colors.white
@@ -190,10 +190,10 @@ class _CartScreenState extends State<CartScreen> {
                                                 InkWell(
                                                   child: Container(
                                                     color: Colors.grey,
-                                                    child: const Icon(
+                                                    child: Icon(
                                                       CupertinoIcons.minus,
                                                       color: Colors.white,
-                                                      size: 17,
+                                                      size: 17.h,
                                                     ),
                                                   ),
                                                   onTap: (){
@@ -212,10 +212,10 @@ class _CartScreenState extends State<CartScreen> {
                                                 InkWell(
                                                   child: Container(
                                                     color: Colors.black,
-                                                    child: const Icon(
+                                                    child: Icon(
                                                       CupertinoIcons.plus,
                                                       color: Colors.white,
-                                                      size: 17,
+                                                      size: 17.h,
                                                     ),
                                                   ),
                                                   onTap: (){
@@ -244,31 +244,31 @@ class _CartScreenState extends State<CartScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: 50,
+                      width: 375.w,
+                      height: 50.h,
                       child: ElevatedButton(
                           style:ElevatedButton.styleFrom(
                               backgroundColor: Colors.black
                           ),
-                          onPressed: ()async{
+                          onPressed: (){
                           },
                           child: Text(
                             "Proceed to Checkout",
                             style: appStyle(18, Colors.white, FontWeight.bold),
                           )),
                     ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: 20.h,
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: 50,
+                      width: 375.w,
+                      height: 50.h,
                       child: ElevatedButton(
                           style:ElevatedButton.styleFrom(
                               backgroundColor: Colors.redAccent
                           ),
-                          onPressed: (){
-                            cartProvider.clearCart();
+                          onPressed: ()async{
+                            await cartProvider.clearCart();
                             setState(() {
                             });
                           },

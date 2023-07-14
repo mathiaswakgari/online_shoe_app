@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_shoe_app/views/shared/app_style.dart';
 
 class CategoryButton extends StatelessWidget {
@@ -17,13 +18,13 @@ class CategoryButton extends StatelessWidget {
     return MaterialButton(
         onPressed: onPressed,
         child: Container(
-        width: MediaQuery.of(context).size.width * 0.255,
+        width: (375 * 0.255).w,
         decoration: BoxDecoration(
           border: Border.all(
             width: 1,
             color: buttonColor, style: BorderStyle.solid
           ),
-          borderRadius: BorderRadius.all(Radius.circular(9))
+          borderRadius: BorderRadius.all(Radius.circular(9.h))
         ),
           child: Center(child: Text(label, style: appStyle(20, buttonColor, FontWeight.w600),)),
     ),

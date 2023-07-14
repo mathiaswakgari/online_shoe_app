@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:online_shoe_app/views/shared/staggerTile.dart';
 
@@ -33,8 +34,8 @@ class LatestShoesStagger extends StatelessWidget {
               mainAxisSpacing: 16,
               staggeredTileBuilder: (index)=> StaggeredTile.extent(
                   (index % 2 == 0)? 1: 1, (index % 4 == 1 || index % 4 ==3)
-                  ? MediaQuery.of(context).size.height * 0.3
-                  : MediaQuery.of(context).size.height * 0.32
+                  ? (812 * 0.3).h
+                  : (812 * 0.32).h
               ),
               itemBuilder: (context, index){
                 final shoe = snapshot.data![index];
