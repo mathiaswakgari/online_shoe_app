@@ -45,10 +45,18 @@ dependencies:
   flutter_slidable: ^3.0.0
   text_scroll: ^0.2.0
   flutter_screenutil: ^5.7.0
+  flutter_launcher_icons: ^0.13.1
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "images/adidasOne.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
