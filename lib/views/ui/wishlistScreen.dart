@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:online_shoe_app/controllers/wishlistProvider.dart';
 import 'package:provider/provider.dart';
@@ -29,18 +30,18 @@ class _WishlistScreenState extends State<WishlistScreen> {
       ),
       backgroundColor: const Color(0xFFE2E2E2),
       body: SizedBox(
-        width:MediaQuery.of(context).size.width ,
-        height: MediaQuery.of(context).size.height,
+        width:375.w ,
+        height: 812.h,
         child: Stack(
           children: [
             ClipRRect(
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(12),
-                bottomRight:  Radius.circular(12),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(12.h),
+                bottomRight:  Radius.circular(12.h),
               ),
               child: Container(
-                width:MediaQuery.of(context).size.width ,
-                height: MediaQuery.of(context).size.height * 0.4,
+                width:375.w ,
+                height: (812 * 0.4).h,
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                 decoration: const BoxDecoration(
                     image: DecorationImage(
@@ -49,7 +50,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
                     )
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 40.0),
+                  padding: EdgeInsets.only(left: 40.0.w),
                   child: Text(
                     "My Wishlist",
                     style: appStyle(36, Colors.white, FontWeight.bold),
@@ -58,12 +59,12 @@ class _WishlistScreenState extends State<WishlistScreen> {
               ),
             ),
             Positioned(
-              top: 235,
+              top: 235.h,
               bottom: 0,
               right: 0,
               left: 0,
               child: Padding(
-                  padding: const EdgeInsets.all(8),
+                  padding: EdgeInsets.all(8.h),
                   child:wishlistNotifier.wishlists.isEmpty ?
                   Center(
                     child: Text(
@@ -73,15 +74,15 @@ class _WishlistScreenState extends State<WishlistScreen> {
                   )
                   :ListView.builder(
                       itemCount: wishlistNotifier.wishlists.length,
-                      padding: const EdgeInsets.only(top: 100),
+                      padding:  EdgeInsets.only(top: 100.h),
                       itemBuilder: (BuildContext context, int index){
                         final shoe = wishlistNotifier.wishlists[index];
-                        return Padding(padding: const EdgeInsets.all(8),
+                        return Padding(padding: EdgeInsets.all(8.h),
                           child: ClipRRect(
-                            borderRadius: const BorderRadius.all(Radius.circular(12)),
+                            borderRadius: BorderRadius.all(Radius.circular(12.h)),
                             child: Container(
-                              height: MediaQuery.of(context).size.height * 0.14,
-                              width: MediaQuery.of(context).size.width,
+                              height: (812 * 0.14).h,
+                              width: 375.w,
                               decoration:const BoxDecoration(
                                 color: Color(0XFFEBEEEF)
                               ),
@@ -91,8 +92,9 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                   Flexible(
                                     child: Row(
                                       children: [
-                                        Padding(padding: const EdgeInsets.all(12),
-                                        child: CachedNetworkImage(
+                                        Padding(
+                                          padding: EdgeInsets.all(12.h),
+                                          child: CachedNetworkImage(
                                           imageUrl: shoe['imageUrl'],
                                           width: 70,
                                           height: 70,
@@ -101,13 +103,14 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                         ),
                                         Expanded(
                                           child: Padding(
-                                            padding: const EdgeInsets.only(top: 12, left: 20),
+                                            padding: EdgeInsets.only(top: 12.h, left: 20.w),
                                           child: Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                             children: [
                                               Text(
                                                 shoe['name'],
+                                                overflow: TextOverflow.ellipsis,
                                                 style: appStyle(
                                                     16,
                                                     Colors.black,
@@ -120,8 +123,8 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                                     Colors.grey,
                                                     FontWeight.w600),
                                               ),
-                                              const SizedBox(
-                                                height: 5,
+                                              SizedBox(
+                                                height: 5.h,
                                               ),
 
                                               Row(
@@ -143,7 +146,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.all(8),
+                                    padding: EdgeInsets.all(8.h),
                                     child: GestureDetector(
                                       onTap: ()async{
                                         wishlistNotifier.deleteWishlist(shoe['key']);

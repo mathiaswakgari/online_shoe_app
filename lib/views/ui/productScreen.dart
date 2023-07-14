@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:online_shoe_app/controllers/cartScreenProvider.dart';
 import 'package:online_shoe_app/controllers/productScreenProvider.dart';
@@ -41,7 +42,7 @@ class _ProductScreenState extends State<ProductScreen> {
                   automaticallyImplyLeading: false,
                   leadingWidth: 0,
                   title: Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding:  EdgeInsets.only(bottom: 10.h),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -62,13 +63,13 @@ class _ProductScreenState extends State<ProductScreen> {
                   snap: false,
                   floating: true,
                   backgroundColor: Colors.transparent,
-                  expandedHeight: MediaQuery.of(context).size.height,
+                  expandedHeight: 812.h,
                   flexibleSpace: FlexibleSpaceBar(
                     background: Stack(
                       children: [
                         SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.5,
-                          width: MediaQuery.of(context).size.width,
+                          height: (812 * 0.5).h,
+                          width: 375.w,
                           child: PageView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: widget.shoe.imageUrl.length,
@@ -80,15 +81,15 @@ class _ProductScreenState extends State<ProductScreen> {
                                 return Stack(
                                   children: [
                                     Container(
-                                      height: MediaQuery.of(context).size.height * 0.39,
-                                      width: MediaQuery.of(context).size.width,
+                                      height: (812 * 0.39).h,
+                                      width: 375.w,
                                       color: const Color(0XFFEBEEEF),
                                       child: CachedNetworkImage(
                                           imageUrl: widget.shoe.imageUrl[index]),
                                     ),
                                     Positioned(
-                                      top: MediaQuery.of(context).size.height * 0.109,
-                                      right: 20 ,
+                                      top: (812 * 0.109).h,
+                                      right: 20.w ,
                                       child: Consumer<WishlistNotifier>(
                                         builder: (context, wishlistNotifier, child){
                                           return GestureDetector(
@@ -123,15 +124,15 @@ class _ProductScreenState extends State<ProductScreen> {
                                         bottom: 0,
                                         right: 0,
                                         left: 0,
-                                        top: 200,
+                                        top: 200.h,
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: List<Widget>.generate(
                                                   widget.shoe.imageUrl.length,
                                                   (index) => Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 4),
+                                            padding: EdgeInsets.symmetric(horizontal: 4.w),
                                             child: CircleAvatar(
-                                              radius: 5,
+                                              radius: 5.h,
                                               backgroundColor: productScreenNotifier
                                                   .activePage == index ?
                                               Colors.black : Colors.grey,
@@ -139,25 +140,24 @@ class _ProductScreenState extends State<ProductScreen> {
                                           )),
                                         )),
                                   ],
-
                                 );
                               }
-
                           ),
                         ),
                         Positioned(
-                            bottom: 10,
+                            bottom: 10.h,
                             child: ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(30),
-                                topRight: Radius.circular(30),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(30.h),
+                                topRight: Radius.circular(30.h),
                               ),
                               child: Container(
-                                height: MediaQuery.of(context).size.height * 0.645,
-                                width: MediaQuery.of(context).size.width,
+                                // height: (812 * 0.645).h,
+                                width: 375.w,
+                                margin: EdgeInsets.only(bottom: 20.h),
                                 color: Colors.white,
                                 child: Padding(
-                                    padding: const EdgeInsets.all(12),
+                                    padding:  EdgeInsets.all(12.h),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
@@ -180,7 +180,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                                 allowHalfRating: true,
                                                 itemCount: 5,
                                                 itemSize: 20,
-                                                itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                                                itemPadding: EdgeInsets.symmetric(horizontal: 4.0.w),
                                                 itemBuilder: (context, _)=> const Icon(
                                                   CupertinoIcons.star_fill,
                                                   color: Colors.black,
@@ -191,8 +191,8 @@ class _ProductScreenState extends State<ProductScreen> {
                                             )
                                           ],
                                         ),
-                                        const SizedBox(
-                                          height: 20,
+                                        SizedBox(
+                                          height: 20.h,
                                         ),
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -206,18 +206,18 @@ class _ProductScreenState extends State<ProductScreen> {
                                                 Text(
                                                   "Colors",
                                                   style: appStyle(18, Colors.black, FontWeight.w500),),
-                                                const SizedBox(
-                                                  width: 5,
+                                                 SizedBox(
+                                                  width: 5.w,
                                                 ),
-                                                const CircleAvatar(
-                                                  radius: 7,
+                                                 CircleAvatar(
+                                                  radius: 7.h,
                                                   backgroundColor: Colors.black,
                                                 ),
-                                                const SizedBox(
-                                                  width: 5,
+                                                SizedBox(
+                                                  width: 5.w,
                                                 ),
-                                                const CircleAvatar(
-                                                  radius: 7,
+                                                CircleAvatar(
+                                                  radius: 7.h,
                                                   backgroundColor: Colors.green,
                                                 )
                                               ],
@@ -225,8 +225,8 @@ class _ProductScreenState extends State<ProductScreen> {
 
                                           ],
                                         ),
-                                        const SizedBox(
-                                          height: 20,
+                                        SizedBox(
+                                          height: 20.h,
                                         ),
                                         Column(
                                           children: [
@@ -243,11 +243,11 @@ class _ProductScreenState extends State<ProductScreen> {
                                                 )
                                               ],
                                             ),
-                                            const SizedBox(
-                                              height: 20,
+                                            SizedBox(
+                                              height: 20.h,
                                             ),
                                             SizedBox(
-                                              height: 40,
+                                              height: 40.h,
                                               child: ListView.builder(
                                                   itemCount: widget.shoe.sizes.length,
                                                   scrollDirection: Axis.horizontal,
@@ -256,10 +256,10 @@ class _ProductScreenState extends State<ProductScreen> {
                                                     final sizes = productScreenNotifier.selectedSizes[index];
 
                                                   return Padding(
-                                                    padding: const EdgeInsets.only(right: 10.0),
+                                                    padding: EdgeInsets.only(right: 10.0.w),
                                                     child: ChoiceChip(
                                                         shape: RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.circular(20)
+                                                          borderRadius: BorderRadius.circular(20.h)
                                                         ),
                                                         disabledColor: Colors.white,
                                                         label: Text(
@@ -289,8 +289,8 @@ class _ProductScreenState extends State<ProductScreen> {
                                                   }
                                               ),
                                             ),
-                                            const SizedBox(
-                                              height: 10,
+                                            SizedBox(
+                                              height: 10.h,
                                             ),
                                             const Divider(
                                               indent: 10,
@@ -298,51 +298,54 @@ class _ProductScreenState extends State<ProductScreen> {
                                               endIndent: 10,
                                             ),
                                             SizedBox(
-                                              width: MediaQuery.of(context).size.width * 0.9,
+                                              width: (812 * 0.9).w,
                                               child: Text(
                                                   widget.shoe.title,
                                                   style: appStyle(26, Colors.black, FontWeight.w700),
                                               ),
                                             ),
-                                            const SizedBox(
-                                              height: 10,
+                                            SizedBox(
+                                              height: 10.h,
                                             ),
-                                            Text(
-                                              widget.shoe.description,
-                                              maxLines: 3,
-                                              overflow: TextOverflow.fade,
-                                              style: appStyle(
-                                                  14,
-                                                  Colors.black,
-                                                  FontWeight.normal),
-                                            ),
-                                            const SizedBox(
-                                              height: 10,
+                                            Container(
+                                              height: 50.h,
+                                              color: Colors.transparent,
+                                              child: Text(
+                                                widget.shoe.description,
+                                                overflow: TextOverflow.fade,
+                                                style: appStyle(
+                                                    14,
+                                                    Colors.black,
+                                                    FontWeight.normal),
+                                              ),
                                             ),
                                             SizedBox(
-                                              width: MediaQuery.of(context).size.width,
-                                              height: 50,
-                                              child: ElevatedButton(
-                                                  style:ElevatedButton.styleFrom(
-                                                    backgroundColor: Colors.black
-                                                  ),
-                                                  onPressed: ()async{
-                                                      cartNotifier.createCart({
-                                                        "id": widget.shoe.id,
-                                                        "name": widget.shoe.name,
-                                                        "category" : widget.shoe.category,
-                                                        "sizes": widget.shoe.sizes,
-                                                        "imageUrl": widget.shoe.imageUrl[0],
-                                                        "price": widget.shoe.price,
-                                                        "qty": 1,
-                                                      });
-                                                      Navigator.pop(context);
-                                                    },
-                                                  child: Text(
-                                                      "Add to cart",
-                                                      style: appStyle(18, Colors.white, FontWeight.bold),
-                                                  )),
-                                            )
+                                              height: 10.h,
+                                            ),
+                                            SizedBox(
+                                            width: 375.w,
+                                            height: 50.h,
+                                            child: ElevatedButton(
+                                                style:ElevatedButton.styleFrom(
+                                                  backgroundColor: Colors.black
+                                                ),
+                                                onPressed: ()async{
+                                                    cartNotifier.createCart({
+                                                      "id": widget.shoe.id,
+                                                      "name": widget.shoe.name,
+                                                      "category" : widget.shoe.category,
+                                                      "sizes": widget.shoe.sizes,
+                                                      "imageUrl": widget.shoe.imageUrl[0],
+                                                      "price": widget.shoe.price,
+                                                      "qty": 1,
+                                                    });
+                                                    Navigator.pop(context);
+                                                  },
+                                                child: Text(
+                                                    "Add to cart",
+                                                    style: appStyle(18, Colors.white, FontWeight.bold),
+                                                )),
+                                              )
                                           ],
                                         )
                                       ],
